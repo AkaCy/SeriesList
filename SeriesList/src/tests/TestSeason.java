@@ -1,3 +1,10 @@
+/**In charge of testing the class season and its compatibility with the episodes class
+ *
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ */
+
 package tests;
 
 import classes.Episode;

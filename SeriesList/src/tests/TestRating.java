@@ -1,3 +1,8 @@
+/**In charge of testing the rating class
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ */
 package tests;
 import classes.Episode;
 import classes.Rating;
