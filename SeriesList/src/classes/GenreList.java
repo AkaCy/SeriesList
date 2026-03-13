@@ -15,15 +15,15 @@ public class GenreList {
 
     public void removeGenre(Genre genre){this.genreList.remove(genre);}
 
-    public void printGenre(){
-        if(this.genreList.isEmpty()){
-            System.out.println("No listed genre (for now)");
-        }else{
-            System.out.println("Genre list: ");
+    public String printGenre(){
+        StringBuilder printedGenre = new StringBuilder();
+        if(!this.genreList.isEmpty()){
             for(Genre genre : this.genreList){
-                System.out.println(genre);
+                printedGenre.append(genre);
+                printedGenre.append(" ");
             }
+            return printedGenre.toString();
         }
-
+        return "No genre (for now)";
     }
 }
