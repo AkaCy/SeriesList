@@ -1,0 +1,78 @@
+package classes;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Season {
+    String name;
+    ArrayList<Episode> listEpisodes;
+
+    public Season(String name) {
+        this.name = name;
+        this.listEpisodes = new ArrayList<Episode>();
+    }
+
+    public void addEpisode(Episode episode) {
+        this.listEpisodes.add(episode);
+    }
+
+    public void removeEpisode(Episode episode){
+        this.listEpisodes.remove(episode);
+    }
+
+    public void printEpisodes(){
+        System.out.println("---- List Episode ----");
+        for(Episode episode : this.listEpisodes){
+            episode.printEpisode(true);
+        }
+    }
+
+    public void printSeasons(){
+        System.out.println("Name : " + this.name);
+        System.out.println("Total Duration : " + this.getTotalDuration());
+        System.out.println("Nombre d'Episodes : " + this.getNumberEpisodes());
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Voulez-vous afficher tous les episodes ? (o/n) : ");
+        String reponse = scanner.nextLine().trim().toLowerCase();
+
+        if (reponse.equals("O") || reponse.equals("o")) {
+            this.printEpisodes();
+        }
+    }
+
+    public int getNumberEpisodes(){
+        int nb = 0;
+        for (Episode episode : this.listEpisodes) {
+            nb+=1;
+        }
+        return nb;
+    }
+
+
+
+    public double getTotalDuration(){
+        double totalDuration = 0;
+        for (Episode episode : this.listEpisodes){
+            totalDuration += episode.getDuration();
+        }
+        return totalDuration;
+    }
+
+    public ArrayList<Episode> getListEpisodes() {
+        return listEpisodes;
+    }
+
+    public void setListEpisodes(ArrayList<Episode> listEpisodes) {
+        this.listEpisodes = listEpisodes;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+}

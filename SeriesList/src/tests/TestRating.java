@@ -6,7 +6,7 @@ public class TestRating {
     public static void main(String[] args) {
         // Test d'un Rating
         Rating ratingList = new Rating();
-        ratingList.printRatingTotal();
+        ratingList.printRatingTotal(false);
 
         ratingList.addRating(4.5);
         System.out.println("================== should print an error showing a rating can't be greater than 5  ==================");
@@ -15,7 +15,7 @@ public class TestRating {
         ratingList.addRating(2);
         ratingList.addRating(1);
         System.out.println("================== should display 2.5    ==================");
-        ratingList.printRatingTotal();
+        ratingList.printRatingTotal(false);
         System.out.println();
 
     }
