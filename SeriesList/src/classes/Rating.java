@@ -18,7 +18,11 @@ public class Rating{
     }
 
     public void addRating(double newRating) {
-        this.rating.add(newRating);
+        if (newRating > 5) {
+            System.out.println("Rating can't be greater than 5");
+        } else {
+            this.rating.add(newRating);
+        }
     }
 
     public void printRatingTotal(){
