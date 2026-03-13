@@ -47,10 +47,6 @@ public class Series {
         return name;
     }
 
-    public String[] getSeasons(){
-
-    }
-
     public float getRating(){
         return rating;
     }
