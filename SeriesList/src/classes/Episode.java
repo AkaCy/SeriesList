@@ -1,15 +1,13 @@
 package classes;
 
-import java.util.ArrayList;
-
 public class Episode {
     String name;
-    float duration;
+    double duration;
     Rating rating;
     boolean episodeVu;
 
 
-    public Episode(String name, float duration) {
+    public Episode(String name, double duration) {
         this.name = name;
         this.duration = duration;
         this.rating =  new Rating();
@@ -21,10 +19,10 @@ public class Episode {
     public void setName(String name) {
         this.name = name;
     }
-    public float getDuration() {
+    public double getDuration() {
         return duration;
     }
-    public void setDuration(float duration)
+    public void setDuration(double duration)
     {
         this.duration = duration;
     }
@@ -37,20 +35,20 @@ public class Episode {
         this.episodeVu = episodeVu;
     }
 
-    public void printEpisode() {
-        System.out.println("Nom épisode : " + name);
-        System.out.println("Durée épisode : " + duration);
-        this.rating.printRatingTotal();
+    public void printEpisode(boolean indentation) {
+        String prefix = indentation ? "\t" : "";
+        System.out.println(prefix + "Nom épisode : " + name);
+        System.out.println(prefix + "Durée épisode : " + duration);
+        this.rating.printRatingTotal(indentation);
         if (!episodeVu) {
-            System.out.println("Episode Vu : Non");
+            System.out.println(prefix +"Episode Vu : Non");
         } else {
-            System.out.println("Episode Vu : Oui");
+            System.out.println(prefix +"Episode Vu : Oui");
         }
     }
 
     public void rateEpisode(double newRating) {
         this.rating.addRating(newRating);
-        this.rating.printRatingTotal();
     }
 
 

@@ -25,15 +25,16 @@ public class Rating{
         }
     }
 
-    public void printRatingTotal(){
+    public void printRatingTotal(boolean indentation){
+        String prefix = indentation ? "\t" : "";
         float totalRating = 0;
         for (double rating : this.rating) {
             totalRating += rating;
         }
         if (totalRating > 0) {
-            System.out.println("Total Rating : " + totalRating/this.rating.size());
+            System.out.println(prefix +"Total Rating : " + totalRating/this.rating.size());
         } else {
-            System.out.println("Total Rating : No ratings");
+            System.out.println(prefix + "Total Rating : No ratings");
         }
 
     }
