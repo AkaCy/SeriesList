@@ -37,4 +37,16 @@ public class Rating{
         }
 
     }
+    public String printRatingTotalToString(){
+        float totalRating = 0;
+        for (double rating : this.rating) {
+            totalRating += rating;
+        }
+        if (totalRating > 0) {
+            return "" + totalRating/this.rating.size();
+        } else {
+            return "No ratings";
+        }
+
+    }
 }
