@@ -10,14 +10,14 @@ public class Series {
     Rating rating;
     LocalDate releaseDate;
     LocalDate endDate;
-    Genre genre;
+    GenreList genreList;
 
     public Series(String name, LocalDate releaseDate, LocalDate endDate){
         this.setName(name);
         this.seasons = new ArrayList<Season>();
         this.setReleasedate(releaseDate);
         this.setEndDate(endDate);
-        this.setGenre(Genre.NaN);
+        this.genreList = new GenreList();
         this.rating = new Rating();
     }
 
@@ -25,23 +25,23 @@ public class Series {
         this.setName(name);
         this.seasons = new ArrayList<Season>();
         this.setReleasedate(releaseDate);
-        this.setGenre(Genre.NaN);
+        this.genreList = new GenreList();
         this.rating = new Rating();
     }
 
     public void setName(String name) {
         this.name = name;
     }
-    public void setSeasons(ArrayList<Season> seasons){
-        this.seasons = seasons;
-    }
+    public void setSeasons(ArrayList<Season> seasons){this.seasons = seasons;}
     public void setReleasedate(LocalDate releaseDate){
         this.releaseDate = releaseDate;
     }
     public void setEndDate(LocalDate endDate){
         this.endDate = endDate;
     }
-    public void setGenre(Genre genre){this.genre = genre;}
+    public void addGenre(Genre genre){
+        this.genreList.addGenre(genre);
+    }
 
 
     public String getName(){
@@ -58,7 +58,6 @@ public class Series {
     public ArrayList<Season> getSeasons(){return seasons;}
     public LocalDate getReleaseDate(){return releaseDate;}
     public LocalDate getEndDate(){return endDate;}
-    public Genre getGenre(){return genre;}
 
 
     public void displayInformation(){
@@ -75,8 +74,8 @@ public class Series {
         sb.append("End date: ");
         sb.append(this.getEndDate());
         sb.append("\n\t");
-        sb.append("Genre: ");
-        sb.append(this.getGenre());
+        sb.append("Genre list: ");
+        sb.append(this.genreList.printGenre());
         System.out.println(sb);
     }
 }

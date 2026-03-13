@@ -9,7 +9,9 @@ public class TestSeries {
         // Test avec une liste d'un élément
         Series episode1BB = new Series("Breaking bad", LocalDate.of(2008,1,20), LocalDate.of(2013,7,29));
         System.out.println("================== Breaking bad   ==================");
-        episode1BB.setGenre(Genre.Drama);
+        episode1BB.addGenre(Genre.Drama);
+        episode1BB.addGenre(Genre.Action);
+        episode1BB.addGenre(Genre.Thriller);
         episode1BB.displayInformation();
         System.out.println();
     }
