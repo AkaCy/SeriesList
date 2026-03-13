@@ -1,3 +1,19 @@
+/** In charge of managing the main components of a series
+ * Encapsulates the following attributes:
+ * -Name of the series
+ * -Release date
+ * -End date (optional)
+ * -Adding genre
+ * -Removing genre
+ *
+ * Needed on the main class
+ *
+ * @author MrTaquitous
+ * @version 1.0
+ * @since 13/03/2026
+ * @see LocalDate, ArrayList
+ */
+
 package classes;
 
 import enumPack.Genre;
@@ -11,6 +27,7 @@ public class Series {
     LocalDate releaseDate;
     LocalDate endDate;
     GenreList genreList;
+
 
     public Series(String name, LocalDate releaseDate, LocalDate endDate){
         this.setName(name);
@@ -42,6 +59,9 @@ public class Series {
     public void addGenre(Genre genre){
         this.genreList.addGenre(genre);
     }
+    public void removeGenre(Genre genre){
+        this.genreList.removeGenre(genre);
+    }
 
 
     public String getName(){
@@ -59,7 +79,9 @@ public class Series {
     public LocalDate getReleaseDate(){return releaseDate;}
     public LocalDate getEndDate(){return endDate;}
 
-
+    /**
+     * In charge of displaying main information of the Series
+     */
     public void displayInformation(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.getName());
