@@ -1,3 +1,16 @@
+/**In charge of managing all the episode's information, including:
+ * -Episode's name
+ * -Duration
+ * -Rating (viewing current rating and rating it yourself)
+ * -If it was seen by the person or not
+ *
+ * Needed in the season class.
+ *
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ */
+
 package classes;
 
 public class Episode {

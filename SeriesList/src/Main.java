@@ -1,3 +1,14 @@
+/**The main file, in charge of merging all the classes together, a full manager in charge of:
+ * -Displaying the list of series
+ * -Incorporating series along with defining all of their representative parts (Thanks to the class season).
+ * Doing it in a loop until the user wants to quit.
+ *
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ * @see LocalDate, ArrayList, Scanner
+ */
+
 import classes.Series;
 
 import java.time.LocalDate;
@@ -13,12 +24,14 @@ public class Main {
         String reponse;
         ArrayList<Series> series = new ArrayList<>();
         do {
+          
             afficherMenu();
             reponse = scanner.nextLine().trim().toLowerCase();
             if(reponse.equals("1")) {
                 afficherSeries(series);
             }
             if(reponse.equals("2")) {
+               //    public Series(String name, int Seasons, LocalDate releaseDate, LocalDate endDate)
                 ajouterserie(series);
             }
             if(reponse.equals("3")) {

@@ -1,3 +1,9 @@
+/**In charge of testing the episode class
+ *
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ */
 package tests;
 
 import classes.Episode;

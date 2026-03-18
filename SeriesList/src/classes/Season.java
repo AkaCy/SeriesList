@@ -1,3 +1,14 @@
+/**In charge of managing each individual season, and displaying the episodes inside of it, with the information
+ * contained in each episode along with it.
+ *
+ * Needed on the series class
+ *
+ * @author Cyril
+ * @version 1.0
+ * @since 13/03/2026
+ * @see ArrayList, Scanner
+ */
+
 package classes;
 
 import java.util.ArrayList;
@@ -42,6 +53,10 @@ public class Season {
         }
     }
 
+    /**Counts the number of episodes in each season
+     *
+     * @return An integer demonstrating the number of episodes
+     */
     public int getNumberEpisodes(){
         int nb = 0;
         for (Episode episode : this.listEpisodes) {
@@ -51,7 +66,10 @@ public class Season {
     }
 
 
-
+    /**Counts the total duration of the season
+     *
+     * @return An integer demonstrating the length of the whole season
+     */
     public double getTotalDuration(){
         double totalDuration = 0;
         for (Episode episode : this.listEpisodes){
