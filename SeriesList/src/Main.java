@@ -4,14 +4,16 @@
  * Doing it in a loop until the user wants to quit.
  *
  * @author Cyril
- * @version 1.0
- * @since 13/03/2026
+ * @version 1.2
+ * @since 18/03/2026
  * @see LocalDate, ArrayList, Scanner
  */
 
 import classes.Episode;
 import classes.Season;
 import classes.Series;
+import classes.GenreList;
+import enumPack.Genre;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,6 +62,9 @@ public class Main {
                 "Quitter : q\n" +
                 "Ajouter une saison : 1\n" +
                 "Supprimer une saison : 2\n" +
+
+               "Ajouter un genre : 4 \n" +
+               "Soustraire un genre : 5 \n" +
                 "Entrer dans une saison : écrire le nom\n";
     }
 
@@ -105,6 +110,12 @@ public class Main {
             }
             if(reponse.equals("2")) {
                 supprimerseason(serie);
+            }
+            if(reponse.equals("4")){
+                addGenre(serie);
+            }
+            if(reponse.equals("5")){
+                subsGenre(serie);
             }
             for (Season saison : serie.getSeasons()) {
                 if(saison.getName().toLowerCase().equals(reponse)) {
@@ -223,19 +234,117 @@ public class Main {
         }
     }
 
+    public static void addGenre(Series serie){
+        int i = 1;
+        for(Genre genre : Genre.values()){
+            System.out.println(i + "-" + genre);
+            i++;
+        }
+        Scanner scanner = new Scanner(System.in);
+        int genreValue = lireInt(scanner, "Choose what genre to add (number) : \n");
+        genreValue--;
+        i = 0;
+        for(Genre genre : Genre.values()){
+            if(i == genreValue){
+                serie.addGenre(genre);
+            }
+            i++;
+        }
+    }
+
+    public static void subsGenre(Series serie){
+        serie.printGenreList();
+        Scanner scanner = new Scanner(System.in);
+        int genreValue = lireInt(scanner, "Choose what genre to remove (number) : \n");
+        genreValue--;
+        Genre genreToRemove = Genre.NaN;
+        int i = 0;
+        for(Genre genre : serie.getGenreList()){
+            if(i == genreValue){
+                genreToRemove = genre;
+            }
+            i++;
+        }
+        if(genreToRemove != Genre.NaN){
+            serie.removeGenre(genreToRemove);
+        }
+
+    }
+
     public static void ajouterserie(ArrayList<Series> series){
         Scanner scanner = new Scanner(System.in);
         String name = lireString(scanner,"Quel est le nom de votre Série (minuscule sans accents) ?\n");
         int year = lireInt(scanner, "Sortie en quelle année ?\n");
+        System.out.println(year);
+        System.out.println(year<2026);
+        while(year>2026 || year<0){
+            System.out.println("Wrong input (either future or negative number) \n");
+            year = lireInt(scanner, "Sortie en quelle année ?\n");
+        }
         int month = lireInt(scanner, "Sortie quel mois ?\n");
+        while((month>12) || (month<0)){
+            System.out.println("Wrong input, we have 12 months bro, what are you doing? (either future or negative number) \n");
+            month = lireInt(scanner, "Sortie quel mois ?\n");
+        }
         int day = lireInt(scanner, "Sortie quel jour ?\n");
+        if(month == 1 || month== 3 || month== 5 || month== 7 || month== 8 || month== 10 || month== 12){
+            while((day>31) || (day<0)){
+                System.out.println("Omg bro are you inventing days now? \n");
+                day = lireInt(scanner, "Sortie quel jour ?\n");
+            }
+        } else if (month == 4 || month== 6 || month== 9 || month == 11) {
+            while((day>30) || (day<0)){
+                System.out.println("Omg bro are you inventing days now? \n");
+                day = lireInt(scanner, "Sortie quel jour ?\n");
+            }
+        } else if ((month == 2) && ((year%400 ==0) && (!(year%100 == 0)))){
+            while((day>29) || (day<0)){
+                System.out.println("Clue : it's february and we're in a leap year \n");
+                day = lireInt(scanner, "Sortie quel jour ?\n");
+            }
+        }else{
+            while((day>28) || (day<0)){
+                System.out.println("Clue : it's february and we're not in a leap year \n");
+                day = lireInt(scanner, "Sortie quel jour ?\n");
+            }
+        }
+
         String response;
         do {
             response = lireString(scanner,"La série est-t-elle finie ? (o/n)");
             if(response.equals("o")) {
                 int yearEnd = lireInt(scanner, "Fini en quelle année ?\n");
+                while(yearEnd>2026 || yearEnd<0 || yearEnd<year){
+                    System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                    yearEnd = lireInt(scanner, "Fini en quelle année ?\n");
+                }
                 int monthEnd = lireInt(scanner, "Fini quel mois ?\n");
+                while((monthEnd>12) || (monthEnd<0) || (yearEnd == year && monthEnd<month)){
+                    System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                    monthEnd = lireInt(scanner, "Fini quel mois ?\n");
+                }
                 int dayEnd = lireInt(scanner, "Fini quel jour ?\n");
+                if(monthEnd == 1 || monthEnd== 3 || monthEnd== 5 || monthEnd== 7 || monthEnd== 8 || monthEnd== 10 || monthEnd== 12){
+                    while((dayEnd>31) || (dayEnd<0) || (yearEnd == year && monthEnd==month && dayEnd<day)){
+                        System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                        dayEnd = lireInt(scanner, "Sortie quel jour ?\n");
+                    }
+                } else if (monthEnd == 4 || monthEnd== 6 || monthEnd== 9 || monthEnd == 11) {
+                    while((dayEnd>30) || (dayEnd<0) || (yearEnd == year && monthEnd==month && dayEnd<day)){
+                        System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                        dayEnd = lireInt(scanner, "Fini quel jour ?\n");
+                    }
+                } else if ((monthEnd == 2) && ((yearEnd%400 ==0) && (!(yearEnd%100 == 0)))){
+                    while((dayEnd>29) || (dayEnd<0) || (yearEnd == year && monthEnd==month && dayEnd<day)){
+                        System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                        dayEnd = lireInt(scanner, "Fini quel jour ?\n");
+                    }
+                }else{
+                    while((dayEnd>28) || (dayEnd<0) || (yearEnd == year && monthEnd==month && dayEnd<day)){
+                        System.out.println("Either our of range, negative or earlier than the date it came out \n");
+                        dayEnd = lireInt(scanner, "Fini quel jour ?\n");
+                    }
+                }
                 Series series1 = new Series(name, LocalDate.of(year,month,day),LocalDate.of(yearEnd,monthEnd,dayEnd));
                 series.add(series1);
             } else if(response.equals("n")) {

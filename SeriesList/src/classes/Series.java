@@ -53,6 +53,10 @@ public class Series {
     public void setReleasedate(LocalDate releaseDate){
         this.releaseDate = releaseDate;
     }
+
+    public void printGenreList(){
+        this.genreList.printGenre();
+    }
     public void setEndDate(LocalDate endDate){
         this.endDate = endDate;
     }
@@ -62,7 +66,9 @@ public class Series {
     public void removeGenre(Genre genre){
         this.genreList.removeGenre(genre);
     }
-
+    public ArrayList<Genre> getGenreList(){
+        return this.genreList.getGenreList();
+    }
 
     public String getName(){
         return name;

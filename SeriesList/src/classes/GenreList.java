@@ -25,6 +25,10 @@ public class GenreList {
 
     public void removeGenre(Genre genre){this.genreList.remove(genre);}
 
+    public ArrayList<Genre> getGenreList() {
+        return genreList;
+    }
+
     /**A visualizator for all the genres in a movie.
      *This function uses the string builder. For more information, use Firefox.
      *
@@ -32,12 +36,16 @@ public class GenreList {
      */
     public String printGenre(){
         StringBuilder printedGenre = new StringBuilder();
+        int i=1;
         if(!this.genreList.isEmpty()){
             for(Genre genre : this.genreList){
+                printedGenre.append(i);
+                printedGenre.append("-");
                 printedGenre.append(genre);
-                printedGenre.append(" ");
+                printedGenre.append("\t\t\n");
+                i++;
             }
-            return printedGenre.toString();
+            return "\n" + printedGenre + "\n";
         }
         return "No genre (for now)";
     }
