@@ -52,9 +52,9 @@ public class Main {
         return "\n\nQue voulez-vous faire ?\n" +
                 "Quitter : q\n" +
                 "Voir Series : 1\n" +
-                "Ajouter une série : 2\n" +
-                "Supprimer une série : 3\n" +
-                "Entrer dans une serie : écrire le nom\n";
+                "Ajouter une serie : 2\n" +
+                "Supprimer une serie : 3\n" +
+                "Entrer dans une serie : ecrire le nom\n";
     }
 
     public static String afficherMenuSeries(Series serie){
@@ -65,15 +65,15 @@ public class Main {
 
                "Ajouter un genre : 4 \n" +
                "Soustraire un genre : 5 \n" +
-                "Entrer dans une saison : écrire le nom\n";
+                "Entrer dans une saison : ecrire le nom\n";
     }
 
     public static String afficherMenuSaison(Season season){
         return "\n\nQue voulez-vous faire ?\n" +
                 "Quitter : q\n" +
-                "Ajouter un épisode : 1\n" +
-                "Supprimer un épisode : 2\n" +
-                "Marquer un épisode comme lu : 3\n"+
+                "Ajouter un episode : 1\n" +
+                "Supprimer un episode : 2\n" +
+                "Marquer un episode comme lu : 3\n"+
                 "Noter un episode : 4\n";
     }
 
@@ -127,13 +127,13 @@ public class Main {
 
     public static void ajouterSaison(Series serie){
         Scanner scanner = new Scanner(System.in);
-        String reponse = lireString(scanner,"Quel est le nom de la saison à rajouter ?\n");
+        String reponse = lireString(scanner,"Quel est le nom de la saison a rajouter ?\n");
         serie.addSeason(new Season(reponse));
     }
 
     public static void voirEpisode(Season saison){
         Scanner scanner = new Scanner(System.in);
-        String name = lireString(scanner,"Quel est le nom de l'épisode vu ?\n");
+        String name = lireString(scanner,"Quel est le nom de l'episode vu ?\n");
         for (Episode episode : saison.getListEpisodes()) {
             if(episode.getName().toLowerCase().equals(name)) {
                 episode.setEpisodeVu(true);
@@ -143,7 +143,7 @@ public class Main {
 
     public static void rateEpisode(Season saison){
         Scanner scanner = new Scanner(System.in);
-        String name = lireString(scanner,"Quel est le nom de l'épisode a noter ?\n");
+        String name = lireString(scanner,"Quel est le nom de l'episode a noter ?\n");
         int rate = lireInt(scanner,"Quel note /5 ?\n");
         for (Episode episode : saison.getListEpisodes()) {
             if(episode.getName().toLowerCase().equals(name)) {
@@ -154,8 +154,8 @@ public class Main {
 
     public static void ajouterEpisode(Season saison){
         Scanner scanner = new Scanner(System.in);
-        String name = lireString(scanner,"Quel est le nom de l'épisode à rajouter ?\n");
-        int duration = lireInt(scanner,"Quel est la durée de l'épisode à rajouter (minutes)?\n");
+        String name = lireString(scanner,"Quel est le nom de l'episode a rajouter ?\n");
+        int duration = lireInt(scanner,"Quel est la duree de l'episode a rajouter (minutes)?\n");
         saison.addEpisode(new Episode(name,duration));
     }
 
@@ -174,11 +174,11 @@ public class Main {
     public static void supprimerserie(ArrayList<Series> series){
         Scanner scanner = new Scanner(System.in);
         showAllSeries(series);
-        String reponse = lireString(scanner,"Quel est le nom de la série à supprimer ?\n");
+        String reponse = lireString(scanner,"Quel est le nom de la serie a supprimer ?\n");
         for (Series serie : series){
             if (serie.getName().equalsIgnoreCase(reponse)){
                 series.remove(serie);
-                System.out.print("Série supprimé !\n");
+                System.out.print("Serie supprime !\n");
                 showAllSeries(series);
             }
         }
@@ -187,11 +187,11 @@ public class Main {
     public static void supprimerEpisode(Season saison){
         Scanner scanner = new Scanner(System.in);
         saison.printEpisodes();
-        String reponse = lireString(scanner,"Quel est le nom de l'épisode à supprimer ?\n");
+        String reponse = lireString(scanner,"Quel est le nom de l'episode a supprimer ?\n");
         for (Episode episode : saison.getListEpisodes()){
             if (episode.getName().equalsIgnoreCase(reponse)){
                 saison.removeEpisode(episode);
-                System.out.print("Episode supprimé !\n");
+                System.out.print("Episode supprime !\n");
             }
         }
     }
@@ -199,12 +199,12 @@ public class Main {
     public static void supprimerseason(Series serie){
         Scanner scanner = new Scanner(System.in);
         serie.displayInformation();
-        String reponse = lireString(scanner,"Quel est le nom de la saison à supprimer ?\n");
+        String reponse = lireString(scanner,"Quel est le nom de la saison a supprimer ?\n");
         ArrayList<Season> seasons = serie.getSeasons();
         for ( int i=0; i< serie.getNumberSeasons(); i++){
             if (seasons.get(i).getName().equalsIgnoreCase(reponse)){
                 serie.removeSeason(seasons.get(i));
-                System.out.print("Saison supprimé !\n");
+                System.out.print("Saison supprime !\n");
                 serie.displayInformation();
             }
         }
@@ -273,13 +273,13 @@ public class Main {
 
     public static void ajouterserie(ArrayList<Series> series){
         Scanner scanner = new Scanner(System.in);
-        String name = lireString(scanner,"Quel est le nom de votre Série (minuscule sans accents) ?\n");
-        int year = lireInt(scanner, "Sortie en quelle année ?\n");
+        String name = lireString(scanner,"Quel est le nom de votre Serie (minuscule sans accents) ?\n");
+        int year = lireInt(scanner, "Sortie en quelle annee ?\n");
         System.out.println(year);
         System.out.println(year<2026);
         while(year>2026 || year<0){
             System.out.println("Wrong input (either future or negative number) \n");
-            year = lireInt(scanner, "Sortie en quelle année ?\n");
+            year = lireInt(scanner, "Sortie en quelle annee ?\n");
         }
         int month = lireInt(scanner, "Sortie quel mois ?\n");
         while((month>12) || (month<0)){
@@ -311,12 +311,12 @@ public class Main {
 
         String response;
         do {
-            response = lireString(scanner,"La série est-t-elle finie ? (o/n)");
+            response = lireString(scanner,"La serie est-t-elle finie ? (o/n)");
             if(response.equals("o")) {
-                int yearEnd = lireInt(scanner, "Fini en quelle année ?\n");
+                int yearEnd = lireInt(scanner, "Fini en quelle annee ?\n");
                 while(yearEnd>2026 || yearEnd<0 || yearEnd<year){
                     System.out.println("Either our of range, negative or earlier than the date it came out \n");
-                    yearEnd = lireInt(scanner, "Fini en quelle année ?\n");
+                    yearEnd = lireInt(scanner, "Fini en quelle annee ?\n");
                 }
                 int monthEnd = lireInt(scanner, "Fini quel mois ?\n");
                 while((monthEnd>12) || (monthEnd<0) || (yearEnd == year && monthEnd<month)){

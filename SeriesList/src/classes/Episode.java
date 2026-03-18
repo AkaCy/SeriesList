@@ -50,8 +50,8 @@ public class Episode {
 
     public void printEpisode(boolean indentation) {
         String prefix = indentation ? "\t" : "";
-        System.out.println(prefix + "Nom épisode : " + name);
-        System.out.println(prefix + "Durée épisode : " + duration);
+        System.out.println(prefix + "Nom episode : " + name);
+        System.out.println(prefix + "Duree episode : " + duration);
         this.rating.printRatingTotal(indentation);
         if (!episodeVu) {
             System.out.println(prefix +"Episode Vu : Non");
