@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class Series {
     String name;
     ArrayList<Season> seasons;
-    Rating rating;
     LocalDate releaseDate;
     LocalDate endDate;
     GenreList genreList;
@@ -35,7 +34,6 @@ public class Series {
         this.setReleasedate(releaseDate);
         this.setEndDate(endDate);
         this.genreList = new GenreList();
-        this.rating = new Rating();
     }
 
     public Series(String name, LocalDate releaseDate){
@@ -43,7 +41,6 @@ public class Series {
         this.seasons = new ArrayList<Season>();
         this.setReleasedate(releaseDate);
         this.genreList = new GenreList();
-        this.rating = new Rating();
     }
 
     public void setName(String name) {
@@ -110,8 +107,6 @@ public class Series {
         sb.append(this.getName());
         sb.append(" | # of seasons: ");
         sb.append(this.getNumberSeasons());
-        sb.append(" | Rating: ");
-        sb.append(this.rating.printRatingTotalToString());
         sb.append("\n\t");
         sb.append("Release date: ");
         sb.append(this.getReleaseDate());
