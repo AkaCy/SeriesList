@@ -83,6 +83,15 @@ public class Series {
         this.seasons.add(season);
     }
 
+    public void showSeasons(){
+        int nb = 1;
+        for (Season season : this.seasons) {
+            System.out.println("Saison "+nb);
+            season.printSeasons();
+            nb+=1;
+        }
+    }
+
     public void removeSeason(Season season){
         this.seasons.remove(season);
     }
@@ -107,5 +116,6 @@ public class Series {
         sb.append("Genre list: ");
         sb.append(this.genreList.printGenre());
         System.out.println(sb);
+        showSeasons();
     }
 }

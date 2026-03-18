@@ -42,15 +42,6 @@ public class Season {
         System.out.println("Name : " + this.name);
         System.out.println("Total Duration : " + this.getTotalDuration());
         System.out.println("Nombre d'Episodes : " + this.getNumberEpisodes());
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Voulez-vous afficher tous les episodes ? (o/n) : ");
-        String reponse = scanner.nextLine().trim().toLowerCase();
-
-        if (reponse.equals("O") || reponse.equals("o")) {
-            this.printEpisodes();
-        }
     }
 
     /**Counts the number of episodes in each season

@@ -9,6 +9,7 @@
  * @see LocalDate, ArrayList, Scanner
  */
 
+import classes.Episode;
 import classes.Season;
 import classes.Series;
 
@@ -24,10 +25,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String reponse;
         ArrayList<Series> series = new ArrayList<>();
+        series.add(new Series("Breaking", LocalDate.of(2008,1,20), LocalDate.of(2013,7,29)));
         do {
-          
-            afficherMenu();
-            reponse = scanner.nextLine().trim().toLowerCase();
+            reponse = lireString(scanner,afficherMenu());
             if(reponse.equals("1")) {
                 afficherSeries(series);
             }
@@ -46,35 +46,70 @@ public class Main {
         } while (!reponse.equals("q"));
     }
 
-    public static void afficherMenu(){
-        System.out.print("Que voulez-vous faire ?\n" +
+    public static String afficherMenu(){
+        return "\n\nQue voulez-vous faire ?\n" +
                 "Quitter : q\n" +
                 "Voir Series : 1\n" +
                 "Ajouter une série : 2\n" +
                 "Supprimer une série : 3\n" +
-                "Entrer dans une serie : écrire le nom\n");
+                "Entrer dans une serie : écrire le nom\n";
     }
 
-    public static void afficherMenuSeries(Series serie){
-        serie.displayInformation();
-        System.out.print("Que voulez-vous faire ?\n" +
+    public static String afficherMenuSeries(Series serie){
+       return "\n\nQue voulez-vous faire ?\n" +
                 "Quitter : q\n" +
                 "Ajouter une saison : 1\n" +
                 "Supprimer une saison : 2\n" +
-                "Entrer dans une saison : écrire le nom\n");
+                "Entrer dans une saison : écrire le nom\n";
+    }
+
+    public static String afficherMenuSaison(Season season){
+        return "\n\nQue voulez-vous faire ?\n" +
+                "Quitter : q\n" +
+                "Ajouter un épisode : 1\n" +
+                "Supprimer un épisode : 2\n" +
+                "Marquer un épisode comme lu : 3\n"+
+                "Noter un episode : 4\n";
+    }
+
+    public static void menuSaison(Season saison){
+        Scanner scanner = new Scanner(System.in);
+        String reponse;
+        do {
+            saison.printSeasons();
+            saison.printEpisodes();
+            reponse = lireString(scanner,afficherMenuSaison(saison));
+            if(reponse.equals("1")) {
+                ajouterEpisode(saison);
+            }
+            if(reponse.equals("2")) {
+                supprimerEpisode(saison);
+            }
+            if(reponse.equals("3")) {
+                voirEpisode(saison);
+            }
+            if(reponse.equals("4")) {
+                rateEpisode(saison);
+            }
+        } while (!reponse.equals("q"));
     }
 
     public static void menuSeries(Series serie){
         Scanner scanner = new Scanner(System.in);
         String reponse;
         do {
-            afficherMenuSeries(serie);
-            reponse = scanner.nextLine().trim().toLowerCase();
+            serie.displayInformation();
+            reponse = lireString(scanner,afficherMenuSeries(serie));
             if(reponse.equals("1")) {
                 ajouterSaison(serie);
             }
             if(reponse.equals("2")) {
                 supprimerseason(serie);
+            }
+            for (Season saison : serie.getSeasons()) {
+                if(saison.getName().toLowerCase().equals(reponse)) {
+                    menuSaison(saison);
+                }
             }
         } while (!reponse.equals("q"));
     }
@@ -83,6 +118,34 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String reponse = lireString(scanner,"Quel est le nom de la saison à rajouter ?\n");
         serie.addSeason(new Season(reponse));
+    }
+
+    public static void voirEpisode(Season saison){
+        Scanner scanner = new Scanner(System.in);
+        String name = lireString(scanner,"Quel est le nom de l'épisode vu ?\n");
+        for (Episode episode : saison.getListEpisodes()) {
+            if(episode.getName().toLowerCase().equals(name)) {
+                episode.setEpisodeVu(true);
+            }
+        }
+    }
+
+    public static void rateEpisode(Season saison){
+        Scanner scanner = new Scanner(System.in);
+        String name = lireString(scanner,"Quel est le nom de l'épisode a noter ?\n");
+        int rate = lireInt(scanner,"Quel note /5 ?\n");
+        for (Episode episode : saison.getListEpisodes()) {
+            if(episode.getName().toLowerCase().equals(name)) {
+                episode.rateEpisode(rate);
+            }
+        }
+    }
+
+    public static void ajouterEpisode(Season saison){
+        Scanner scanner = new Scanner(System.in);
+        String name = lireString(scanner,"Quel est le nom de l'épisode à rajouter ?\n");
+        int duration = lireInt(scanner,"Quel est la durée de l'épisode à rajouter (minutes)?\n");
+        saison.addEpisode(new Episode(name,duration));
     }
 
     public static void afficherSeries(ArrayList<Series> series){
@@ -106,6 +169,18 @@ public class Main {
                 series.remove(serie);
                 System.out.print("Série supprimé !\n");
                 showAllSeries(series);
+            }
+        }
+    }
+
+    public static void supprimerEpisode(Season saison){
+        Scanner scanner = new Scanner(System.in);
+        saison.printEpisodes();
+        String reponse = lireString(scanner,"Quel est le nom de l'épisode à supprimer ?\n");
+        for (Episode episode : saison.getListEpisodes()){
+            if (episode.getName().equalsIgnoreCase(reponse)){
+                saison.removeEpisode(episode);
+                System.out.print("Episode supprimé !\n");
             }
         }
     }
