@@ -79,6 +79,14 @@ public class Series {
     public LocalDate getReleaseDate(){return releaseDate;}
     public LocalDate getEndDate(){return endDate;}
 
+    public void addSeason(Season season){
+        this.seasons.add(season);
+    }
+
+    public void removeSeason(Season season){
+        this.seasons.remove(season);
+    }
+
     /**
      * In charge of displaying main information of the Series
      */

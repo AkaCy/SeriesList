@@ -9,6 +9,7 @@
  * @see LocalDate, ArrayList, Scanner
  */
 
+import classes.Season;
 import classes.Series;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class Main {
             }
             for (Series serie : series){
                 if(serie.getName().toLowerCase().equals(reponse)) {
-                    afficherMenuSeries(serie);
+                    menuSeries(serie);
                 }
             }
         } while (!reponse.equals("q"));
@@ -61,8 +62,27 @@ public class Main {
                 "Ajouter une saison : 1\n" +
                 "Supprimer une saison : 2\n" +
                 "Entrer dans une saison : écrire le nom\n");
+    }
+
+    public static void menuSeries(Series serie){
         Scanner scanner = new Scanner(System.in);
-        String reponse = scanner.nextLine().trim().toLowerCase();
+        String reponse;
+        do {
+            afficherMenuSeries(serie);
+            reponse = scanner.nextLine().trim().toLowerCase();
+            if(reponse.equals("1")) {
+                ajouterSaison(serie);
+            }
+            if(reponse.equals("2")) {
+                supprimerseason(serie);
+            }
+        } while (!reponse.equals("q"));
+    }
+
+    public static void ajouterSaison(Series serie){
+        Scanner scanner = new Scanner(System.in);
+        String reponse = lireString(scanner,"Quel est le nom de la saison à rajouter ?\n");
+        serie.addSeason(new Season(reponse));
     }
 
     public static void afficherSeries(ArrayList<Series> series){
@@ -71,44 +91,83 @@ public class Main {
         }
     }
 
+    public static void showAllSeries(ArrayList<Series> series){
+        for (Series serie : series){
+            serie.displayInformation();
+        }
+    }
+
     public static void supprimerserie(ArrayList<Series> series){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Sortie en quelle année ?\n");
-        String reponse = scanner.nextLine().trim().toLowerCase();
+        showAllSeries(series);
+        String reponse = lireString(scanner,"Quel est le nom de la série à supprimer ?\n");
         for (Series serie : series){
             if (serie.getName().equalsIgnoreCase(reponse)){
                 series.remove(serie);
+                System.out.print("Série supprimé !\n");
+                showAllSeries(series);
             }
+        }
+    }
+
+    public static void supprimerseason(Series serie){
+        Scanner scanner = new Scanner(System.in);
+        serie.displayInformation();
+        String reponse = lireString(scanner,"Quel est le nom de la saison à supprimer ?\n");
+        ArrayList<Season> seasons = serie.getSeasons();
+        for ( int i=0; i< serie.getNumberSeasons(); i++){
+            if (seasons.get(i).getName().equalsIgnoreCase(reponse)){
+                serie.removeSeason(seasons.get(i));
+                System.out.print("Saison supprimé !\n");
+                serie.displayInformation();
+            }
+        }
+    }
+
+    // A ajouter dans la classe Main (par exemple avant ajouterserie)
+    public static int lireInt(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.print("Entree invalide, merci d'entrer un entier.\n");
+            }
+        }
+    }
+
+    public static String lireString(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                return input.toLowerCase();
+            }
+            System.out.print("Entree invalide, merci d'entrer un texte non vide.\n");
         }
     }
 
     public static void ajouterserie(ArrayList<Series> series){
         Scanner scanner = new Scanner(System.in);
-        //    public Series(String name, int Seasons, LocalDate releaseDate, LocalDate endDate){
-        System.out.print("Quel est le nom de votre Série (minuscule sans accents) ?\n");
-        String name = scanner.nextLine();
-        System.out.print("Sortie en quelle année ?\n");
-        int year = Integer.parseInt(scanner.nextLine());
-        System.out.print("Sortie quel mois ?\n");
-        int month = Integer.parseInt(scanner.nextLine());
-        System.out.print("Sortie quel jour ?\n");
-        int day = Integer.parseInt(scanner.nextLine());
-
-        System.out.print("La série est-t-elle finie ? (o/n)\n");
-        String response = scanner.nextLine();
+        String name = lireString(scanner,"Quel est le nom de votre Série (minuscule sans accents) ?\n");
+        int year = lireInt(scanner, "Sortie en quelle année ?\n");
+        int month = lireInt(scanner, "Sortie quel mois ?\n");
+        int day = lireInt(scanner, "Sortie quel jour ?\n");
+        String response;
         do {
+            response = lireString(scanner,"La série est-t-elle finie ? (o/n)");
             if(response.equals("o")) {
-                System.out.print("Quelle date de fin année ?\n");
-                int yearEnd = Integer.parseInt(scanner.nextLine());
-                System.out.print("Date de fin : mois ?\n");
-                int monthEnd = Integer.parseInt(scanner.nextLine());
-                System.out.print("date de fin jour ?\n");
-                int dayEnd = Integer.parseInt(scanner.nextLine());
+                int yearEnd = lireInt(scanner, "Fini en quelle année ?\n");
+                int monthEnd = lireInt(scanner, "Fini quel mois ?\n");
+                int dayEnd = lireInt(scanner, "Fini quel jour ?\n");
                 Series series1 = new Series(name, LocalDate.of(year,month,day),LocalDate.of(yearEnd,monthEnd,dayEnd));
                 series.add(series1);
             } else if(response.equals("n")) {
                 Series series1 = new Series(name, LocalDate.of(year,month,day));
                 series.add(series1);
+            } else {
+                System.out.print("Reponse invalide. Tape 'o' ou 'n'.\n");
             }
         } while (!response.equals("o") && !response.equals("n"));
     }
